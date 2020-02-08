@@ -227,8 +227,8 @@ class GraphicsDebugger {
     this.debugData.cursor['tool'] = '-'
     this.debugData.cursor['mouseWheel'] = 'x: - / y: -'
 
-    document.addEventListener("mousemove", this._cursorMoveTracker);
-    document.addEventListener('wheel', this._mouseWheelTracker);
+    document.addEventListener("mousemove", this._cursorMoveTracker.bind(this));
+    document.addEventListener('wheel', this._mouseWheelTracker.bind(this));
 
   }
 
@@ -248,7 +248,7 @@ class GraphicsDebugger {
 
   }
 
-  _cursorMoveTracker = (event) => {
+  _cursorMoveTracker(event) {
 
     this.debugData.cursor['pagePos'] = `x: ${event.pageX} / y: ${event.pageY}`
     this.debugData.cursor['clientPos'] = `x: ${event.clientX} / y: ${event.clientY}`
@@ -273,7 +273,7 @@ class GraphicsDebugger {
 
   }
 
-  _mouseWheelTracker = (event) => {
+  _mouseWheelTracker(event) {
     this.debugData.cursor['mouseWheel'] = `x: ${event.deltaX} / y: ${event.deltaY}`
   }
 

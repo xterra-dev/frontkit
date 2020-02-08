@@ -6,7 +6,7 @@ according to [LICENSE](LICENSE).
 
 ## How-to start
 
-You can start using this editor [online](https://xterra-dev.github.io/frontkit/)
+You can start using this editor [online](https://xterra.github.io/frontkit/)
 or clone this repository to your local machine and open `index.html` page in
 your browser. Nothing else required - no dependencies and other modern stuff!
 
