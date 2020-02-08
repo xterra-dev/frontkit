@@ -1,0 +1,129 @@
+/* TODO: use local fonts, not google */
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap');
+
+html, body {
+
+  margin: 0;
+  padding: 0;
+
+  background: #13171c;
+  color: #fff;
+
+  font-size: 16px;
+  font-family: 'Open Sans', Arial, sans-serif;
+
+}
+
+.floating-platform {
+  position: fixed;
+  background: rgba(19, 23, 28, 1);
+  border-radius: 13px;
+  z-index: 2;
+  border: 1px red solid;
+  opacity: 1;
+  visibility: visible;
+  cursor: default!important;
+  /* backdrop-filter: blur(2px); */
+}
+
+.floating-platform.hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.floating-platform.debug {
+  z-index: 3;
+}
+
+#scene {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  overflow: hidden;
+}
+
+#sceneSelection {
+  position: absolute;
+  border: 1px solid #4c8bf5;
+  background: rgba(76, 139, 245, .5);
+}
+
+#ground {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  background-image:url('../checker.png');
+
+}
+
+#tools {
+  width: 80px;
+  left: 30px;
+  top: 30px;
+  text-align: center;
+}
+
+#controls {
+  width: 400px;
+  bottom: 30px;
+  right: 30px;
+  top: 30px;
+}
+
+/*
+
+###################### DEBUG ######################
+
+*/
+
+#debug-cursor {
+  font-size: 12px;
+  padding: 7px;
+  border: none!important;
+}
+
+
+
+
+
+/*
+
+###################### TOOLS ######################
+
+*/
+
+#tools > div {
+  width: 100%;
+  height: 40px;
+  line-height: 40px;
+  display: inline-block;
+  border: 1px solid transparent;
+}
+
+#tools > div:hover {
+  border: 1px solid rgba(255, 255, 255, .5);
+}
+
+#tools > div.selected {
+  border: 1px solid #fff;
+}
+
+#tools > div:first-child {
+  padding-top: 10px;
+  border-top-left-radius: 13px;
+  border-top-right-radius: 13px;
+}
+
+#tools > div:last-child {
+  padding-bottom: 10px;
+  border-bottom-left-radius: 13px;
+  border-bottom-right-radius: 13px;
+}
+
+#tools > div > i {
+  font-size: 18px;
+}
