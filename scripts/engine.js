@@ -321,6 +321,8 @@ class Ground {
       end: this.pointerEnd.bind(this)
     })
 
+    document.addEventListener('wheel', this.wheelMove.bind(this));
+
   }
 
   changeSize(size) {
@@ -527,6 +529,46 @@ class Ground {
     delete this.editor.graphicsDebugger.debugData.cursor['groundPosAfter']
 
   }
+
+  wheelMove(event) {
+
+    switch (this.editor.workspace.tools.selected) {
+      case 'pointer':
+        this.moveGround(event)
+        break;
+      case 'hand':
+        this.scaleGround(event)
+        break;
+    }
+
+  }
+
+  moveGround(event) {
+
+    const scale = event.deltaMode === 1 ? 15 : 0
+
+    this.editor.workspace.ground.position = {
+      top: this.editor.workspace.ground.position.top + event.deltaY * scale,
+      left: this.editor.workspace.ground.position.left + event.deltaX * scale
+    }
+
+    this.changePosition(this.editor.workspace.ground.position)
+    this.editor.saveWorkspace()
+
+  }
+
+  scaleGround(event) {
+
+    const change = event.deltaY < 0 ? 1 : -1
+
+    this.editor.workspace.ground.scale = this.editor.workspace.ground.scale + change * 10
+
+    this.changeScale(this.editor.workspace.ground.scale)
+    this.editor.saveWorkspace()
+
+  }
+
+
 
 }
 
