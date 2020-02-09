@@ -42,17 +42,6 @@ class Editor {
 
           }
         }
-      },
-      add: {
-        dom: document.getElementById('add-tool'),
-        events: {
-          switch: function() {
-
-          },
-          unswitch: function() {
-
-          }
-        }
       }
     }
 
@@ -132,6 +121,9 @@ class Editor {
   }
 
   switchTool(toolName) {
+
+    if (typeof this.tools[toolName].switchable === 'boolean' && !this.tools[toolName].switchable)
+      return
 
     this.workspace.tools.selected = toolName
     this.graphicsDebugger.debugData.cursor['tool'] = this.workspace.tools.selected
@@ -262,7 +254,7 @@ class GraphicsDebugger {
     const hoverObjects = document.elementsFromPoint(event.clientX, event.clientY)
     let region = "other"
     for (const dom of hoverObjects) {
-      if (dom.id === "ground" || dom.id === "scene") {
+      if (["ground", "scene", "blueprints", "controls", "tools"].includes(dom.id)) {
         region = dom.id
         break
       }
@@ -325,22 +317,37 @@ class Ground {
 
   }
 
-  changeSize(size) {
+  changeSize(size, animate) {
+
+    if (typeof animate != 'boolean' || animate == null || animate)
+      this.animateGround()
+
     if (typeof size.width == 'number')
       this.element.style.width = `${size.width}px`
     if (typeof size.height == 'number')
       this.element.style.height = `${size.height}px`
+
   }
 
-  changePosition(position) {
+  changePosition(position, animate) {
+
+    if (typeof animate != 'boolean' || animate == null || animate)
+      this.animateGround()
+
     if (typeof position.left == 'number')
       this.element.style.marginLeft = `${0 - position.left}px`
     if (typeof position.top == 'number')
       this.element.style.marginTop = `${0 - position.top}px`
+
   }
 
-  changeScale(percentage) {
+  changeScale(percentage, animate) {
+
+    if (typeof animate != 'boolean' || animate == null || animate)
+      this.animateGround()
+
     this.element.style.scale = `${percentage}%`
+
   }
 
   pointerStart(pointer, event) {
@@ -501,7 +508,7 @@ class Ground {
       left: this.groundInitialPos.left - moveChangeX
     }
 
-    this.changePosition(this.editor.workspace.ground.position)
+    this.changePosition(this.editor.workspace.ground.position, false)
     this.editor.saveWorkspace()
 
     this.editor.graphicsDebugger.debugData.cursor['moveChange'] = `x: ${moveChangeX} / y: ${moveChangeY}`
@@ -565,6 +572,19 @@ class Ground {
 
     this.changeScale(this.editor.workspace.ground.scale)
     this.editor.saveWorkspace()
+
+  }
+
+  animateGround() {
+
+    if (this.groundAnimationTimer)
+      clearTimeout(this.groundAnimationTimer)
+
+    this.element.classList.add('animated')
+
+    this.groundAnimationTimer = setTimeout(function() {
+      this.element.classList.remove('animated')
+    }.bind(this), 450)
 
   }
 

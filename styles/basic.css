@@ -14,12 +14,29 @@ html, body {
 
 }
 
+
+
+/* ####################### SPECIAL ####################### */
+
+.noselect {
+  -webkit-touch-callout: none;
+    -webkit-user-select: none;
+     -khtml-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
+}
+
+
+
+/* ####################### INITIAL ####################### */
+
 .floating-platform {
   position: fixed;
   background: rgba(19, 23, 28, 1);
   border-radius: 13px;
   z-index: 2;
-  border: 1px red solid;
+  border: 1px solid rgba(255,255,255,.1);
   opacity: 1;
   visibility: visible;
   cursor: default!important;
@@ -55,9 +72,11 @@ html, body {
   position: absolute;
   top: 50%;
   left: 50%;
-
   background-image:url('../checker.png');
-
+  transition: none;
+}
+#ground.animated {
+  transition: .4s cubic-bezier(.06,.9,.04,1);
 }
 
 #tools {
@@ -74,11 +93,16 @@ html, body {
   top: 30px;
 }
 
-/*
+#blueprints {
+  left: 30px;
+  bottom: 30px;
+  right: 450px;
+  height: 200px;
+}
 
-###################### DEBUG ######################
 
-*/
+
+/* ######################## DEBUG ######################## */
 
 #debug-cursor {
   font-size: 12px;
@@ -88,13 +112,7 @@ html, body {
 
 
 
-
-
-/*
-
-###################### TOOLS ######################
-
-*/
+/* ######################## TOOLS ######################## */
 
 #tools > div {
   width: 100%;
@@ -126,4 +144,61 @@ html, body {
 
 #tools > div > i {
   font-size: 18px;
+}
+
+
+
+/* ##################### BLUEPRINTS ###################### */
+
+#blueprints > h3 {
+  display: block;
+  padding: 0;
+  margin: 15px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  opacity: .3;
+  text-transform: uppercase;
+}
+
+#blueprints > .showcase {
+  position: absolute;
+  top: 50px;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  flex-flow: raw;
+  overflow-x: auto;
+  flex-wrap: nowrap;
+}
+
+#blueprints > .showcase > .item {
+  display: inline-block;
+  flex-grow: 0;
+  flex-shrink: 0;
+  width: 100px;
+  height: 130px;
+  border: 1px solid rgba(255, 255, 255, .2);
+  border-radius: 7px;
+  text-align: center;
+  margin-right: 20px;
+  background: rgba(19, 23, 28, 1);
+  cursor: grab;
+}
+
+#blueprints > .showcase > .item:first-child{
+  margin-left: 20px;
+}
+
+#blueprints > .showcase > .item > i {
+  font-size: 46px;
+  height: 80px;
+  line-height: 80px;
+}
+
+#blueprints > .showcase > .item > .name {
+  font-size: 12px;
+  font-weight: 600;
+  opacity: .5;
+  text-transform: uppercase;
 }
